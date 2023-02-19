@@ -224,20 +224,21 @@ public class ProtobufSchemaCodegen extends DefaultCodegen implements CodegenConf
      * @param prefix          added prefix
      */
     public void addEnumValuesPrefix(Map<String, Object> allowableValues, String prefix) {
+        String upper_prefix = StringUtils.upperCase(underscore(prefix));
         if (allowableValues.containsKey("enumVars")) {
             List<Map<String, Object>> enumVars = (List<Map<String, Object>>) allowableValues.get("enumVars");
 
             for (Map<String, Object> value : enumVars) {
                 String name = (String) value.get("name");
-                value.put("name", prefix + "_" + name);
-                value.put("value", "\"" + prefix + "_" + name + "\"");
+                value.put("name", upper_prefix + "_" + name);
+                value.put("value", "\"" + upper_prefix + "_" + name + "\"");
             }
         }
 
         if (allowableValues.containsKey("values")) {
             List<String> values = (List<String>) allowableValues.get("values");
             for (String value : values) {
-                value = prefix + "_" + value;
+                value = upper_prefix + "_" + value;
             }
         }
     }
@@ -494,6 +495,11 @@ public class ProtobufSchemaCodegen extends DefaultCodegen implements CodegenConf
         // underscore the model file name
         // PhoneNumber => phone_number
         return underscore(toModelName(name));
+    }
+
+    @Override
+    public String toEnumName(CodegenProperty property) {
+        return camelize(property.name);
     }
 
     @Override
