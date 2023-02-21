@@ -254,16 +254,16 @@ public class ProtobufSchemaCodegen extends DefaultCodegen implements CodegenConf
                 List<Map<String, Object>> enumVars = (List<Map<String, Object>>) allowableValues.get("enumVars");
 
                 HashMap<String, Object> unknown = new HashMap<String, Object>();
-                unknown.put("name", "UNKNOWN");
+                unknown.put("name", "UNSPECIFIED");
                 unknown.put("isString", "false");
-                unknown.put("value", "\"UNKNOWN\"");
+                unknown.put("value", "\"UNSPECIFIED\"");
 
                 enumVars.add(0, unknown);
             }
 
             if (allowableValues.containsKey("values")) {
                 List<String> values = (List<String>) allowableValues.get("values");
-                values.add(0, "UNKNOWN");
+                values.add(0, "UNSPECIFIED");
             }
         }
     }
